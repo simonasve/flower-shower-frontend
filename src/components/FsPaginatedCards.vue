@@ -62,13 +62,13 @@ export default {
 .title {
   color: black;
   text-transform: uppercase;
-  font-family: 'Playfair Display', serif;
+  font-family: 'playfairDisplay', serif;
   font-size: 20px;
   text-align: center;
 }
 .price {
   color: black;
-  font-family: 'Playfair Display', serif;
+  font-family: 'playfairDisplay', serif;
   font-size: 17px;
   text-align: center;
 }
