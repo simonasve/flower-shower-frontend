@@ -1,7 +1,7 @@
 <template>
-  <q-carousel arrows animated infinite v-model="currentSlide" autoplay height="805px">
+  <q-carousel :arrows="landingPage" animated infinite v-model="currentSlide" autoplay :height="!landingPage ? '480px' : '805px'">
     <q-carousel-slide v-for="slide in slides" :key="slide.name" :name="slide.name" :img-src="slide.imgSrc">
-      <div class="absolute-bottom custom-caption">
+      <div :class="landingPage ? 'absolute-bottom custom-caption' : ''">
         <div class="caption">{{slide.caption}}</div>
       </div>
     </q-carousel-slide>
@@ -16,7 +16,11 @@ export default {
     }
   },
   props: {
-    slides: Array
+    slides: Array,
+    landingPage: {
+      default: true,
+      type: Boolean
+    }
   }
 }
 </script>

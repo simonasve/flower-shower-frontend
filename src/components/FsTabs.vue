@@ -3,7 +3,9 @@
     <div v-for="(tab, index) in tabs" :key="index">
       <q-route-tab :label="tab.label" :ripple="tab.ripple" :to="tab.to"/>
     </div>
-    <q-route-tab flat :ripple="false" icon="shopping_cart" to="/cart"/>
+    <q-route-tab flat :ripple="false" icon="shopping_cart" to="/cart">
+      <q-badge color="black" floating>{{amountOfItemsInCart}}</q-badge>
+    </q-route-tab>
   </q-tabs>
 </template>
 
@@ -33,6 +35,11 @@ export default {
           ripple: false
         }
       ]
+    }
+  },
+  computed: {
+    amountOfItemsInCart () {
+      return this.$store.state.items.itemsInCart.length
     }
   }
 }

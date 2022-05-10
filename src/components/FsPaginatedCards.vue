@@ -3,7 +3,7 @@
     <div class="parent-div">
       <div class="row container">
         <div class="q-pa-md col-4" v-for="(item, index) in getPaginatedData" :key="index">
-          <q-card class="my-card">
+          <q-card class="my-card" @click="openItemPage(item)">
             <img style="height: 350px; width: 350px" :src="`/${imgFolderName}/${item.imgName}.jpg`">
             <q-card-section>
               <div class="title">{{item.name}}</div>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -33,6 +35,15 @@ export default {
       type: Number
     },
     imgFolderName: String
+  },
+  methods: {
+    ...mapActions('items', ['setCurrentItem']),
+    openItemPage(item) {
+      const fullItem = { ...item, imgFolderName: this.imgFolderName}
+
+      this.setCurrentItem(fullItem)
+      this.$router.push('/item')
+    }
   },
   computed: {
     getPaginatedData () {
@@ -58,6 +69,7 @@ export default {
 .my-card {
   width: 100%;
   max-width: 350px;
+  cursor: pointer;
 }
 .title {
   color: black;
