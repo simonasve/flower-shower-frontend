@@ -13,7 +13,7 @@ const mutations = {
 
 const actions = {
   loadRoses ({ commit }) {
-    api.get('/roses') //Change to endpoint
+    api.get('/Product/Roses')
       .then((response) => {
         if (response.status === 200) {
           commit('setRoses', response.data)

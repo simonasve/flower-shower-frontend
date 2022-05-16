@@ -2,9 +2,9 @@
   <div class="root-div">
     <div class="parent-div">
       <div class="row container">
-        <div class="q-pa-md col-4" v-for="(item, index) in getPaginatedData" :key="index">
+        <div class="q-pa-md col-4" v-for="item in getPaginatedData" :key="item.id">
           <q-card class="my-card" @click="openItemPage(item)">
-            <img style="height: 350px; width: 350px" :src="`/${imgFolderName}/${item.imgName}.jpg`">
+            <img style="height: 350px; width: 350px" :src="item.imageLink">
             <q-card-section>
               <div class="title">{{item.name}}</div>
               <div v-if="item.unitPrice" class="price">Price per flower: €{{item.price}}</div>
