@@ -38,8 +38,8 @@
       </q-input>
       <q-input v-model="order.message" outlined color="black" class="input" type="textarea" label="Send with message"
         :rules="[value => value.length <= 300 || 'Message is too long']"/>
-      <q-select v-model="order.amount" outlined color="black" class="input" label="Amount" :options="amountOptions"
-        :rules="[value => value > 0 || 'Please select an amount']"/>
+      <q-select v-model="order.quantity" outlined color="black" class="input" label="Quantity" :options="amountOptions"
+        :rules="[value => value > 0 || 'Please select a quantity']"/>
       <q-btn label="Add to cart" class="input" color="black" :ripple="false" type="submit"/>
     </q-form>
   </div>
@@ -66,6 +66,8 @@ export default {
   methods: {
     ...mapActions('items', ['setItemsInCart']),
     submitOrder () {
+      this.order.name = this.currentItem.name
+      this.order.price = this.currentItem.price * this.order.quantity
       const itemsCurrentlyInCart = [...this.itemsInCart]
       itemsCurrentlyInCart.push(this.order)
       this.setItemsInCart(itemsCurrentlyInCart)
