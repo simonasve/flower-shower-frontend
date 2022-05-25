@@ -33,15 +33,12 @@ export default {
     itemsPerPage: {
       default: 9,
       type: Number
-    },
-    imgFolderName: String
+    }
   },
   methods: {
     ...mapActions('items', ['setCurrentItem']),
     openItemPage(item) {
-      const fullItem = { ...item, imgFolderName: this.imgFolderName}
-
-      this.setCurrentItem(fullItem)
+      this.setCurrentItem(item)
       this.$router.push('/item')
     }
   },

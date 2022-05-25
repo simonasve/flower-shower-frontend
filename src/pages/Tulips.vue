@@ -4,74 +4,20 @@
 
 <script>
 import FsPaginatedCards from 'components/FsPaginatedCards.vue'
+import { mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      tulips: [
-        {
-          name: 'Yellow tulips',
-          price: 45.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 30.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 23.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 15.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 30.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 2.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 5.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 16.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 99.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        },
-        {
-          name: 'Yellow tulips',
-          price: 152.00,
-          imgName: 'yellow-tulips',
-          unitPrice: true
-        }
-      ]
-    }
+  components: { FsPaginatedCards },
+  methods: {
+    ...mapActions('flowers', ['loadTulips'])
   },
-  components: { FsPaginatedCards }
+  mounted () {
+    this.loadTulips()
+  },
+  computed: {
+    tulips () {
+      return this.$store.state.flowers.tulips
+    }
+  }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="root-div">
     <div class="item-div">
-      <img style="max-height: 350px; max-width: 500px" :src="`/${currentItem.imgFolderName}/${currentItem.imgName}.jpg`">
+      <img style="max-height: 350px; max-width: 500px" :src="currentItem.imageLink">
       <div class="text-div">
         <div class="item-name">{{currentItem.name}}</div>
         <div v-if="currentItem.unitPrice" class="price">Price per flower: €{{currentItem.price}}</div>
