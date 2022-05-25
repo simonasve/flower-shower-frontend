@@ -2,7 +2,7 @@
   <q-layout>
     <q-header>
       <q-toolbar class="toolbar">
-        <img alt="Shop logo" src="~assets/flower-shower-logo.svg" class="logo-img" @click="goToLandingPage">
+        <img alt="Shop logo" src="~assets/flower-shower-logo.svg" class="logo-img" @click="$router.push('/landing')">
         <fs-tabs/>
       </q-toolbar>
     </q-header>
@@ -19,11 +19,6 @@ export default {
   name: 'MainLayout',
   components: {
     FsTabs
-  },
-  methods: {
-    goToLandingPage () {
-      this.$router.push('/')
-    }
   }
 }
 </script>

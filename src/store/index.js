@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import items from './modules/items'
 import flowers from './modules/flowers'
+import auth from './modules/auth'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       items,
-      flowers
+      flowers,
+      auth
     },
 
     // enable strict mode (adds overhead!)
