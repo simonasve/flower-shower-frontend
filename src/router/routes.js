@@ -41,6 +41,13 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Cart.vue') }
     ]
+  },
+  {
+    path: '/item',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Item.vue') }
+    ]
   }
 ]
 
