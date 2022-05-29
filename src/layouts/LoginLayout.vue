@@ -2,24 +2,20 @@
   <q-layout>
     <q-header>
       <q-toolbar class="toolbar">
-        <img alt="Shop logo" src="~assets/flower-shower-logo.svg" class="logo-img" @click="$router.push('/landing')">
-        <fs-tabs/>
+        <img alt="Shop logo" src="~assets/flower-shower-logo.svg" class="logo-img">
       </q-toolbar>
     </q-header>
     <q-page-container>
-      <router-view />
+      <login />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import FsTabs from '../components/FsTabs.vue'
+import Login from '../pages/Login.vue'
 
 export default {
-  name: 'MainLayout',
-  components: {
-    FsTabs
-  }
+  components: {Login}
 }
 </script>
 
