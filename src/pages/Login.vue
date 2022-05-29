@@ -1,56 +1,53 @@
 <template>
-  <q-page
-    class="window-height window-width row justify-center items-center"
-    style="background: linear-gradient(#8274C5, #5A4A9F);"
-  >
-    <div class="column q-pa-lg">
-      <div class="row">
-        <q-card square class="shadow-24" style="width:300px;height:485px;">
-          <q-card-section class="bg-deep-purple-7">
-            <h4 class="text-h5 text-white q-my-md text-center">Login</h4>
-          </q-card-section>
-          <q-card-section>
-            <q-form class="q-px-sm q-pt-xl">
-              <q-input square clearable v-model="email" type="email" label="Email">
-                <template v-slot:prepend>
-                  <q-icon name="email" />
-                </template>
-              </q-input>
-              <q-input square clearable v-model="password" type="password" label="Password">
-                <template v-slot:prepend>
-                  <q-icon name="lock" />
-                </template>
-              </q-input>
-            </q-form>
-          </q-card-section>
-          <q-card-actions class="q-px-lg">
-            <q-btn unelevated size="lg" color="purple-4" class="full-width text-white" label="Sign In" @click="login"/>
-            <h2/>
-            <q-btn unelevated size="lg" color="purple-4" class="full-width text-white" label="Register" @click="register"/>
-          </q-card-actions>
-        </q-card>
+  <div class="login-form">
+    <q-form @submit="callLogin()">
+      <q-input v-model="credentials.username" label="Username" color="black"/>
+      <q-input v-model="credentials.password" label="Password" color="black" :type="isPasswordHidden ? 'password' : 'text'">
+        <template>
+          <q-btn flat round color="black" :icon="isPasswordHidden ? 'visibility_off' : 'visibility'" @click="isPasswordHidden = !isPasswordHidden" />
+        </template>
+      </q-input>
+      <div class="row justify-end q-mt-md">
+        <q-btn type="submit" color="black" label="Login" />
       </div>
-    </div>
-  </q-page>
+    </q-form>
+  </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'Login',
   data () {
     return {
-      email: '',
-      password: ''
+      credentials: {
+        username: '',
+        password: ''
+      },
+      isPasswordHidden: true
     }
   },
   methods: {
-      // Log the user in
-      login() {
-        //console.log("");
-      }
+    ...mapActions('auth', ['login']),
+    callLogin() {
+      this.login(this.credentials)
+        .then(() => {
+          this.$router.push('/landing')
+        })
+        .catch(() => {
+          this.$q.notify({ type: 'negative', message: 'Login failed' })
+        })
+    }
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .login-form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    height: 550px;
+    margin-top: 231px;
+  }
 </style>
