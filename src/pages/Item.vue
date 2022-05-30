@@ -9,35 +9,7 @@
         <div class="price">{{currentItem.description}}</div>
       </div>
     </div>
-    <q-form @submit="submitOrder">
-      <q-input v-model="order.date" color="black" class="input" mask="####-##-## ##:##" label="Delivery date" outlined
-        :rules="[value => new Date(Date.now() + 86400000) <= new Date(value) || 'Delivery can only be made one day later']">
-        <template v-slot:prepend>
-          <q-icon name="event" class="cursor-pointer" color="black">
-            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-              <q-date v-model="order.date" mask="YYYY-MM-DD HH:mm" color="black">
-                <div class="row items-center justify-end">
-                  <q-btn v-close-popup label="Close" color="primary" flat />
-                </div>
-              </q-date>
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-
-        <template v-slot:append>
-          <q-icon name="access_time" class="cursor-pointer" color="black">
-            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-              <q-time v-model="order.date" mask="YYYY-MM-DD HH:mm" format24h color="black">
-                <div class="row items-center justify-end">
-                  <q-btn v-close-popup label="Close" color="primary" flat />
-                </div>
-              </q-time>
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </q-input>
-      <q-input v-model="order.message" outlined color="black" class="input" type="textarea" label="Send with message"
-        :rules="[value => value.length <= 300 || 'Message is too long']"/>
+    <q-form @submit="submit">
       <q-select v-model="order.quantity" outlined color="black" class="input" label="Quantity" :options="amountOptions"
         :rules="[value => value > 0 || 'Please select a quantity']"/>
       <q-btn label="Add to cart" class="input" color="black" :ripple="false" type="submit"/>
@@ -59,18 +31,22 @@ export default {
     currentItem () {
       return this.$store.state.items.currentItem
     },
-    itemsInCart () {
-      return this.$store.state.items.itemsInCart
+    user () {
+      return this.$store.state.auth.user
     }
   },
   methods: {
-    ...mapActions('items', ['setItemsInCart']),
-    submitOrder () {
-      this.order.name = this.currentItem.name
-      this.order.price = this.currentItem.price * this.order.quantity
-      const itemsCurrentlyInCart = [...this.itemsInCart]
-      itemsCurrentlyInCart.push(this.order)
-      this.setItemsInCart(itemsCurrentlyInCart)
+    ...mapActions('items', ['addItem']),
+    submit () {
+      this.order.userId = this.user
+      this.order.productId = this.currentItem.id
+      this.addItem(this.order)
+        .then(() => {
+          this.$router.push('/landing')
+        })
+        .catch(() => {
+          this.$q.notify({ type: 'negative', message: 'Failed to submit order' })
+        })
     }
   }
 }

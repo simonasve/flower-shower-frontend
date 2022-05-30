@@ -13,7 +13,7 @@ const mutations = {
 
 const actions = {
   login ({ commit }, data) {
-    return api.post('/user/register', data, config)
+    return api.post('/User/login', data, config)
       .then(response => {
         if (response.status === 200) {
           return commit('setUser', response.data)
