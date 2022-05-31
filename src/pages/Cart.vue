@@ -4,16 +4,14 @@
       hide-pagination>
       <template v-slot:body-cell-actions="props">
         <q-td key="name" :props="props">
-          <q-btn icon="delete" @click="removeItemFromCart(props.row)"/>
+          <q-btn icon="delete" color="red" @click="removeItemFromCart(props.row)"/>
         </q-td>
       </template>
     </q-table>
-    <q-card>
-      <q-card-section>Total amount: €{{getTotalAmount()}}</q-card-section>
-    </q-card>
-    <q-form @submit="submitOrder()">
-      <q-input v-model="delivery.address" label="Delivery address" outlined color="black" class="q-ma-sm"/>
-      <q-input v-model="delivery.date" color="black" class="q-ma-sm" mask="####-##-##T##:##:##.###Z" label="Delivery date" outlined
+    <q-form @submit="callSubmitOrder()">
+      <q-input v-model="delivery.address" label="Delivery address" outlined color="black" class="q-ma-sm"
+        :rules="[value => value.length > 0 || 'Address can not be empty']"/>
+      <q-input v-model="delivery.deliveryData" color="black" class="q-ma-sm" mask="####-##-##T##:##:##.###Z" label="Delivery date" outlined
         :rules="[value => new Date(Date.now() + 86400000) <= new Date(value) || 'Delivery can only be made one day later']" />
       <div class="row justify-end q-mt-md">
         <q-btn type="submit" color="black" label="Buy now" />
@@ -56,7 +54,7 @@ export default {
           this.$q.notify({ type: 'negative', message: 'Can not remove product from cart' })
         })
     },
-    submitOrder () {
+    callSubmitOrder () {
       this.delivery.userId = this.user
       this.submitOrder(this.delivery)
         .then(() => {
@@ -66,15 +64,6 @@ export default {
         .catch(() => {
           this.$q.notify({ type: 'negative', message: 'Order could not be taken' })
         })
-    },
-    getTotalAmount () {
-      var totalAmount = 0
-
-      for (item of this.order.orderItems) {
-        totalAmount = totalAmount + item.product.price * item.quantity
-      }
-
-      return totalAmount
     }
   },
   mounted () {

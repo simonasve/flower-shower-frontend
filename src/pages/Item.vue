@@ -11,7 +11,7 @@
     </div>
     <q-form @submit="submit">
       <q-select v-model="order.quantity" outlined color="black" class="input" label="Quantity" :options="amountOptions"
-        :rules="[value => value > 0 || 'Please select a quantity']"/>
+        :rules="[value => value <= currentItem.unitsInStock || 'Net enough units in stock']"/>
       <q-btn label="Add to cart" class="input" color="black" :ripple="false" type="submit"/>
     </q-form>
   </div>
@@ -42,10 +42,15 @@ export default {
       this.order.productId = this.currentItem.id
       this.addItem(this.order)
         .then(() => {
+          this.$q.notify({ type: 'positive', message: 'Item added to cart' })
           this.$router.push('/landing')
         })
-        .catch(() => {
-          this.$q.notify({ type: 'negative', message: 'Failed to submit order' })
+        .catch(error => {
+          if (error.response.status === 409) {
+            this.$q.notify({ type: 'negative', message: 'Quantity exceeds items left in stock' })
+          } else {
+            this.$q.notify({ type: 'negative', message: 'Failed to submit order' })
+          }
         })
     }
   }

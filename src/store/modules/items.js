@@ -32,30 +32,24 @@ const actions = {
       .then(response => {
         if (response.status === 200) {
           commit('setOrder', {})
-          return response.data
         }
       })
-      .catch(err => err)
   },
   addItem ({ dispatch }, data) {
     return api.post(`/User/${data.userId}/OrderItem/${data.productId}?quantity=${data.quantity}`)
       .then(response => {
         if (response.status === 200) {
           dispatch('loadOrder', data.userId)
-          return response.data
         }
       })
-      .catch(err => err)
   },
   removeItem ({ dispatch }, data) {
     return api.delete(`/User/${data.userId}/OrderItem/${data.productId}`)
       .then(response => {
         if (response.status === 200) {
           dispatch('loadOrder', data.userId)
-          return response.data
         }
       })
-      .catch(err => err)
   }
 }
 

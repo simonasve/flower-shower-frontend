@@ -19,6 +19,14 @@ const actions = {
           return commit('setUser', response.data)
         }
       })
+  },
+  register ({ commit }, data) {
+    return api.post('/User/register', data, config)
+      .then(response => {
+        if (response.status === 200) {
+          return commit('setUser', response.data)
+        }
+      })
   }
 }
 
