@@ -40,7 +40,7 @@ const actions = {
   addItem ({ dispatch }, data) {
     config.headers.userId = data.userId
 
-    return api.post(`/User/${data.userId}/OrderItem/${data.productId}?quantity=${data.quantity}`, config)
+    return api.post(`/User/${data.userId}/OrderItem/${data.productId}?quantity=${data.quantity}`, {}, config)
       .then(response => {
         if (response.status === 200) {
           dispatch('loadOrder', data.userId)
