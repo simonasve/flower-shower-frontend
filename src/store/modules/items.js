@@ -30,8 +30,6 @@ const actions = {
       })
   },
   submitOrder ({ commit }, payload) {
-    config.headers.userId = userId
-
     return api.post('/Order/startOrder', payload, config)
       .then(response => {
         if (response.status === 200) {
@@ -40,7 +38,7 @@ const actions = {
       })
   },
   addItem ({ dispatch }, data) {
-    config.headers.userId = userId
+    config.headers.userId = data.userId
 
     return api.post(`/User/${data.userId}/OrderItem/${data.productId}?quantity=${data.quantity}`)
       .then(response => {
@@ -50,7 +48,7 @@ const actions = {
       })
   },
   removeItem ({ dispatch }, data) {
-    config.headers.userId = userId
+    config.headers.userId = data.userId
     
     return api.delete(`/User/${data.userId}/OrderItem/${data.productId}`)
       .then(response => {
