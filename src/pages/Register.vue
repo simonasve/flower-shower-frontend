@@ -1,15 +1,14 @@
 <template>
   <div class="login-form">
-    <q-form @submit="callLogin()">
-      <q-input v-model="credentials.username" label="Username" color="black"/>
-      <q-input v-model="credentials.password" label="Password" color="black" :type="isPasswordHidden ? 'password' : 'text'">
+    <q-form @submit="callRegister()">
+      <q-input v-model="credentials.username" label="New username" color="black"/>
+      <q-input v-model="credentials.password" label="New password" color="black" :type="isPasswordHidden ? 'password' : 'text'">
         <template>
           <q-btn flat round color="black" :icon="isPasswordHidden ? 'visibility_off' : 'visibility'" @click="isPasswordHidden = !isPasswordHidden" />
         </template>
       </q-input>
       <div class="row justify-end q-mt-md">
-        <q-btn class="q-ma-sm" color="black" label="Register" @click="$router.push('/register')"/>
-        <q-btn class="q-ma-sm" type="submit" color="black" label="Login" />
+        <q-btn class="q-ma-sm" color="black" label="Register" type="submit"/>
       </div>
     </q-form>
   </div>
@@ -29,14 +28,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['login']),
-    callLogin() {
-      this.login(this.credentials)
+    ...mapActions('auth', ['register']),
+    callRegister() {
+      this.register(this.credentials)
         .then(() => {
+          this.$q.notify({ type: 'positive', message: 'Register successfull' })
           this.$router.push('/landing')
         })
         .catch(() => {
-          this.$q.notify({ type: 'negative', message: 'Login failed' })
+          this.$q.notify({ type: 'negative', message: 'Register failed' })
         })
     }
   }
