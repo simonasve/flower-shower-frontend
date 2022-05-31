@@ -46,7 +46,7 @@ export default {
   methods: {
     ...mapActions('items', ['loadOrder', 'removeItem', 'submitOrder']),
     removeItemFromCart (item) {
-      this.removeItem({ userId: this.user, productId: item.product.id})
+      this.removeItem({ userId: this.user, productId: item.product.id })
         .then(() => {
           this.$q.notify({ type: 'positive', message: 'Product removed' })
         })

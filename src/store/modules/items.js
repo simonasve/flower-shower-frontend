@@ -27,11 +27,11 @@ const actions = {
         }
       })
   },
-  submitOrder ({}, payload) {
+  submitOrder ({ commit }, payload) {
     return api.post('/Order/startOrder', payload, config)
       .then(response => {
         if (response.status === 200) {
-          commit('setOrder', {})
+          return commit('setOrder', {})
         }
       })
   },
