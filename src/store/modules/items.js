@@ -40,7 +40,7 @@ const actions = {
   addItem ({ dispatch }, data) {
     config.headers.userId = data.userId
 
-    return api.post(`/User/${data.userId}/OrderItem/${data.productId}?quantity=${data.quantity}`)
+    return api.post(`/User/${data.userId}/OrderItem/${data.productId}?quantity=${data.quantity}`, config)
       .then(response => {
         if (response.status === 200) {
           dispatch('loadOrder', data.userId)
@@ -50,7 +50,7 @@ const actions = {
   removeItem ({ dispatch }, data) {
     config.headers.userId = data.userId
     
-    return api.delete(`/User/${data.userId}/OrderItem/${data.productId}`)
+    return api.delete(`/User/${data.userId}/OrderItem/${data.productId}`, config)
       .then(response => {
         if (response.status === 200) {
           dispatch('loadOrder', data.userId)
