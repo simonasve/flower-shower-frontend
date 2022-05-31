@@ -31,7 +31,7 @@ const actions = {
     return api.post('/Order/startOrder', payload, config)
       .then(response => {
         if (response.status === 200) {
-          commit('setOrder', {})
+          return commit('setOrder', {})
         }
       })
   },
